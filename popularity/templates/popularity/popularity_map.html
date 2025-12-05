@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Local Popularity Map</h1>
+<p>Select a region by clicking a marker on the map:</p>
+
+<div id="map" style="height: 500px; width: 100%; border: 2px solid #003366;"></div>
+
+<!-- Leaflet CSS + JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    // Initialize the map centered on the USA
+    var map = L.map('map').setView([37.8, -96], 4);
+
+    // Load OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+
+    // Add each region marker
+    {% for region in regions %}
+        L.marker([{{ region.lat }}, {{ region.lng }}]).addTo(map)
+            .bindPopup(`
+                <b>{{ region.name }}</b><br>
+                <a href="{% url 'popularity:region_detail' region.id %}">
+                    View Trending Movies
+                </a>
+            `);
+    {% endfor %}
+</script>
+
+{% endblock %}
