@@ -12,7 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load environment variables
 load_dotenv()
 
-# Security
+# ---------------------------------------------------
+# SECURITY
+# ---------------------------------------------------
 SECRET_KEY = 'django-insecure-5!*scx+&e*74p-1-horgy(cn)v$p%z#gerc4cr)!sgm!o1j6_m'
 DEBUG = True
 
@@ -23,7 +25,9 @@ ALLOWED_HOSTS = [
     'shreyakappa.pythonanywhere.com',
 ]
 
-# Installed apps
+# ---------------------------------------------------
+# INSTALLED APPS
+# ---------------------------------------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +45,9 @@ INSTALLED_APPS = [
     'popularity',
 ]
 
-# Middleware
+# ---------------------------------------------------
+# MIDDLEWARE
+# ---------------------------------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,12 +60,19 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'moviesstore.urls'
 
-# Templates
+# ---------------------------------------------------
+# TEMPLATES
+# ---------------------------------------------------
+# You have TWO template directories in your project:
+# 1. /templates (global)
+# 2. /moviesstore/templates (local to the app)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'moviesstore' / 'templates'
+            BASE_DIR / 'templates',
+            BASE_DIR / 'moviesstore' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -75,7 +88,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'moviesstore.wsgi.application'
 
-# Database — unchanged
+# ---------------------------------------------------
+# DATABASE
+# ---------------------------------------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -83,7 +98,9 @@ DATABASES = {
     }
 }
 
-# Password validators — unchanged
+# ---------------------------------------------------
+# PASSWORD VALIDATION
+# ---------------------------------------------------
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -91,13 +108,17 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
+# ---------------------------------------------------
+# INTERNATIONALIZATION
+# ---------------------------------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/New_York'
 USE_I18N = True
 USE_TZ = True
 
-# Email settings
+# ---------------------------------------------------
+# EMAIL SETTINGS
+# ---------------------------------------------------
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
@@ -107,23 +128,26 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # ---------------------------------------------------
-# STATIC FILES (corrected)
+# STATIC FILES
 # ---------------------------------------------------
 
 STATIC_URL = '/static/'
 
-# These are the folders Django *reads from* when collecting static
+# Folders Django *reads from*
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',                 # global static folder
-    BASE_DIR / 'moviesstore' / 'static', # app-level static folder
+    BASE_DIR / "moviesstore" / "static"
 ]
 
-# This is where collected static files go on PythonAnywhere
+# The folder Django *writes* to after collectstatic
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# Media
+# ---------------------------------------------------
+# MEDIA FILES
+# ---------------------------------------------------
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Default PK type
+# ---------------------------------------------------
+# DEFAULT PRIMARY KEY FIELD
+# ---------------------------------------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
